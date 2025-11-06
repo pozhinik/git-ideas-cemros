@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГИС Идей ЦЕМРОС</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем Яндекс Карты - ЗАМЕНИТЕ API_KEY на ваш ключ -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=API_KEY&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>🏭 ГИС Идей ЦЕМРОС</h1>
+        <p>Географическая информационная система</p>
+    </div>
+    
+    <!-- Панель фильтров -->
+    <div class="filters-panel">
+        <div class="filter-group">
+            <label>📍 Завод:</label>
+            <select id="plantFilter">
+                <option value="">Все заводы</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label>🎯 Направление:</label>
+            <select id="directionFilter">
+                <option value="">Все направления</option>
+                <option value="Инвестиционный">💼 Инвестиционный</option>
+                <option value="Инновационный">🚀 Инновационный</option>
+                <option value="Кайдзен">📊 Кайдзен</option>
+                <option value="ТРИЗ">💡 ТРИЗ</option>
+                <option value="НИОКР">🔬 НИОКР</option>
+                <option value="Социальный">👥 Социальный</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label>🔍 Поиск:</label>
+            <input type="text" id="searchInput" placeholder="Название, инициатор...">
+        </div>
+        
+        <button class="reset-btn" onclick="resetFilters()">🔄 Сбросить</button>
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="totalProjects">0</div>
+            <div class="stat-label">Всего проектов</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="activePlants">0</div>
+            <div class="stat-label">Активных заводов</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="completedProjects">0</div>
+            <div class="stat-label">Завершено</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="inProgress">0</div>
+            <div class="stat-label">В работе</div>
+        </div>
+    </div>
+
+    <!-- Карта -->
+    <div class="section-title">
+        <h2>🗺 Карта заводов ЦЕМРОС</h2>
+    </div>
+    <div id="map" style="width: 100%; height: 400px;"></div>
+
+    <!-- Список проектов -->
+    <div class="section-title">
+        <h2>📋 Проекты и идеи</h2>
+    </div>
+    <div class="projects-container" id="projectsContainer">
+        <!-- Проекты будут здесь -->
+    </div>
+
+    <!-- Кнопка админа -->
+    <a href="admin.html" class="admin-btn">⚙️ Админ-панель</a>
+
+    <!-- Подключаем скрипты -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

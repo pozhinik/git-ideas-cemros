@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - ГИС Идей</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-section {
+            background: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        
+        .tab-btn.active {
+            background: #2E7D32;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #2E7D32;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #2E7D32;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 15px 0;
+            background: #f8fff8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚙️ Админ-панель</h1>
+        <p>Управление системой ГИС Идей</p>
+    </div>
+
+    <a href="index.html" class="back-btn">← Назад к карте</a>
+
+    <div class="admin-section">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab('import')">📤 Импорт данных</button>
+            <button class="tab-btn" onclick="showTab('users')">👥 Пользователи</button>
+            <button class="tab-btn" onclick="showTab('stats')">📊 Статистика</button>
+            <button class="tab-btn" onclick="showTab('settings')">⚙️ Настройки</button>
+        </div>
+
+        <!-- Импорт данных -->
+        <div id="import" class="tab-content active">
+            <h3>Импорт данных из Excel</h3>
+            <p>Загрузите Excel файл для обновления данных о проектах:</p>
+            
+            <div class="upload-area">
+                <div style="font-size: 48px;">📤</div>
+                <h4>Перетащите Excel файл сюда</h4>
+                <p>или</p>
+                <input type="file" id="excelFile" accept=".xlsx,.xls" style="margin: 10px 0;">
+                <br>
+                <button onclick="importExcel()" style="padding: 10px 20px; background: #2E7D32; color: white; border: none; border-radius: 8px;">
+                    📥 Загрузить данные
+                </button>
+            </div>
+            
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <h4>📋 Требования к файлу:</h4>
+                <ul style="text-align: left; margin: 10px 0;">
+                    <li>Формат: .xlsx или .xls</li>
+                    <li>Столбцы: Название, Завод, Направление, Статус</li>
+                    <li>Максимальный размер: 10MB</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Пользователи -->
+        <div id="users" class="tab-content">
+            <h3>Управление пользователями</h3>
+            
+            <div style="margin: 15px 0;">
+                <input type="text" placeholder="Поиск пользователя..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                    <div>
+                        <strong>Иванов А.С.</strong><br>
+                        <small>ivanov@цемрос.ру</small>
+                    </div>
+                    <div>
+                        <span style="background: #4caf50; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Админ</span>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                    <div>
+                        <strong>Петров В.И.</strong><br>
+                        <small>petrov@цемрос.ру</small>
+                    </div>
+                    <div>
+                        <span style="background: #2196f3; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Просмотр</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div id="stats" class="tab-content">
+            <h3>Статистика системы</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 24px; font-weight: bold;">156</div>
+                    <div>Активных пользователей</div>
+                </div>
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 24px; font-weight: bold;">27</div>
+                    <div>Всего проектов</div>
+                </div>
+            </div>
+            
+            <div style="background: #fff3e0; padding: 15px; border-radius: 8px;">
+                <h4>📈 Активность по дням</h4>
+                <p style="text-align: center; padding: 20px; color: #666;">
+                    Здесь будет график активности пользователей
+                </p>
+            </div>
+        </div>
+
+        <!-- Настройки -->
+        <div id="settings" class="tab-content">
+            <h3>Настройки системы</h3>
+            
+            <div style="margin: 15px 0;">
+                <label>Н
